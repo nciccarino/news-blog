@@ -1,0 +1,48 @@
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <h1>News Scraper</h1>
+      </div>
+      <div class= "navbar-collapse collapse" id="navbar-list">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="/" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Home</a></li>
+          <li><a href="{{> articles/saved-articles }}" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Saved Articles</a></li>
+          <li>
+            {{> articles/scraped-articles }}
+          </li>
+        </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class= "col-xs-12">
+        <h1 class="animated fadeInRightBig">News Scraper</h1>
+        <h2 class="animated fadeInRightBig">New York Times</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <ul>
+          {{#each articles}}
+            <div class="Articles">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
+                  {{> articles/saveAnArticle }}
+                </div>
+                <div class="panel-body">
+                  {{ this.summary }}
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12" id="footer">
+      <h4 id="line">© 2017 Nick Ciccarino</h4>
+    </div>
+  </div>
+
