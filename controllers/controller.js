@@ -44,8 +44,7 @@ var Article = require("../models/Article.js");
 
     }); //request 
     // Tell the browser that we finished scraping the text
-    res.send("Scrape Complete");
-    alert("Articles Added!"); 
+    res.redirect("/articles");
   }); //scrape 
 
   router.get("/articles", function(req, res) {
@@ -57,7 +56,10 @@ var Article = require("../models/Article.js");
       }
       // Or send the doc to the browser as a json object
       else {
-        res.json(doc);
+
+        var obj = { articles: doc };
+
+        res.render("index", obj);
       }
     });
   });
@@ -114,23 +116,45 @@ var Article = require("../models/Article.js");
 
   router.post("/articles/save/:id", function(req, res){
 
-    req.body.title = $(this).title;
-    req.body.link = $(this).link;
-    req.body.summary = $(this).summary; 
-    req.body.saved = true;
-
-    var newSave = new Article(req.body); 
-
-    newSave.save(function(err, doc) {
+    Article.findOneAndUpdate({ "_id": req.params.id }, {$set: {saved:true}}, (function(err, doc) {
       if (err) {
         res.send(err);
       }
       else {
-        res.send(doc); 
+        Article.find({}, function(error, doc) {
+      // Log any errors
+          if (error) {
+            console.log(error);
+          }
+          // Or send the doc to the browser as a json object
+          else {
+
+            var obj = { articles: doc };
+
+            res.redirect("articles-saved", obj);
+          }
+        });
       }
-    }) //end newSave
+    })) //end newSave
 
   }); //end save
+
+  router.get("/articles/saved", function(req, res) {
+    // Grab every doc in the Articles array
+    Article.find({}, function(error, doc) {
+      // Log any errors
+      if (error) {
+        console.log(error);
+      }
+      // Or send the doc to the browser as a json object
+      else {
+
+        var obj = { articles: doc };
+
+        res.render("saved-articles", obj);
+      }
+    });
+  });
 
   router.post("/articles/removeSave/:id", function(req, res){
 
