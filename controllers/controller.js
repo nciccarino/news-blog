@@ -45,6 +45,7 @@ var Article = require("../models/Article.js");
     }); //request 
     // Tell the browser that we finished scraping the text
     res.send("Scrape Complete");
+    alert("Articles Added!"); 
   }); //scrape 
 
   router.get("/articles", function(req, res) {
@@ -95,7 +96,7 @@ var Article = require("../models/Article.js");
       // Otherwise
       else {
         // Use the article id to find and update it's note
-        Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "note": doc._id }}, { new: true })
+        Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comment": doc._id }}, { new: true })
         // Execute the above query
         .exec(function(err, doc) {
           // Log any errors
@@ -111,8 +112,48 @@ var Article = require("../models/Article.js");
     });
   });
 
-  router.get("/comments/:id", function(req, res) {
-    Comment.remove({"_id": req.params.id}, function(err, doc) {
+  router.post("/articles/save/:id", function(req, res){
+
+    req.body.title = $(this).title;
+    req.body.link = $(this).link;
+    req.body.summary = $(this).summary; 
+    req.body.saved = true;
+
+    var newSave = new Article(req.body); 
+
+    newSave.save(function(err, doc) {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.send(doc); 
+      }
+    }) //end newSave
+
+  }); //end save
+
+  router.post("/articles/removeSave/:id", function(req, res){
+
+    req.body.title = $(this).title;
+    req.body.link = $(this).link;
+    req.body.summary = $(this).summary; 
+    req.body.saved = false;
+
+    var newRemove = new Article(req.body); 
+
+    newRemove.save(function(err, doc) {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.send(doc); 
+      }
+    }) //end newSave
+
+  }); //end removeSave
+
+  router.get("/articles/remove/:id", function(req, res) {
+    Article.remove({"_id": req.params.id}, function(err, doc) {
       if (err) {
         console.log(err);
       }
