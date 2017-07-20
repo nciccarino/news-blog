@@ -6,7 +6,7 @@
       <div class= "navbar-collapse collapse" id="navbar-list">
         <ul class="nav navbar-nav navbar-left">
           <li><a href="/" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Home</a></li>
-          <li><a href="{{> articles/saved-articles }}" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Saved Articles</a></li>
+          <li><a href="/saved" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Saved Articles</a></li>
         </ul>
     </div>
   </nav>
@@ -26,7 +26,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
-                    <a href="{{> articles/update-comment }}" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Article Comments</a>
+                    {{!-- <a href="{{> articles/update-comment }}" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Article Comments</a> --}}
                     {{> articles/unsave-articles }}
                     {{> articles/delete-articles }}
                   </div>
