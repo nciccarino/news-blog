@@ -29,6 +29,10 @@
                 <div class="panel-heading">
                   <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
                   {{> articles/saveAnArticle }}
+                  {{#if this.saved}}
+                    <h5 id= "savedIcon">Saved</h5>
+                  {{/if}}
+                  {{> articles/delete-articles }}
                 </div>
                 <div class="panel-body">
                   {{ this.summary }}

@@ -20,7 +20,7 @@ mongoose.Promise = Promise;
 
 // Initialize Express
 var app = express();
-var port = process.env.PORT || 3000; 
+var port = process.env.PORT || 8080; 
 
 // Use morgan and body parser with our app
 app.use(logger("dev"));
@@ -98,6 +98,7 @@ app.set("view engine", "handlebars");
     }); //request 
     // Tell the browser that we finished scraping the text
     res.send("Scrape Complete");
+    alert("Articles Added!"); 
   }); //scrape 
 
   app.get("/articles", function(req, res) {
@@ -148,7 +149,7 @@ app.set("view engine", "handlebars");
       // Otherwise
       else {
         // Use the article id to find and update it's note
-        Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "note": doc._id }}, { new: true })
+        Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comment": doc._id }}, { new: true })
         // Execute the above query
         .exec(function(err, doc) {
           // Log any errors
@@ -184,8 +185,28 @@ app.set("view engine", "handlebars");
 
   }); //end save
 
-  app.get("/comments/:id", function(req, res) {
-    Comment.remove({"_id": req.params.id}, function(err, doc) {
+  app.post("/articles/removeSave/:id", function(req, res){
+
+  	req.body.title = $(this).title;
+  	req.body.link = $(this).link;
+  	req.body.summary = $(this).summary; 
+  	req.body.saved = false;
+
+  	var newRemove = new Article(req.body); 
+
+  	newRemove.save(function(err, doc) {
+  		if (err) {
+  			res.send(err);
+  		}
+  		else {
+  			res.send(doc); 
+  		}
+  	}) //end newSave
+
+  }); //end removeSave
+
+  app.get("/articles/remove/:id", function(req, res) {
+    Article.remove({"_id": req.params.id}, function(err, doc) {
       if (err) {
         console.log(err);
       }
@@ -197,7 +218,7 @@ app.set("view engine", "handlebars");
 
 // Listen on port 3000
 app.listen(port, function() {
-  console.log("App running on port 3000!");
+  console.log("App running on port " + port);
 });
 
 /*
