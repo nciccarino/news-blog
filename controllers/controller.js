@@ -105,8 +105,8 @@ var Article = require("../models/Article.js");
             console.log(err);
           }
           else {
-            // Or send the document to the browser
-            res.render("saved-articles", doc);
+
+            res.json(doc); 
           }
         });
       }
