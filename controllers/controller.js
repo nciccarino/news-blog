@@ -68,7 +68,7 @@ var Article = require("../models/Article.js");
   router.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     Article.findOne({ "_id": req.params.id })
-    // ..and populate all of the comments associated with it
+    // ..and populate all of the notes associated with it
     .populate("comment")
     // now, execute our query
     .exec(function(error, doc) {
@@ -82,7 +82,6 @@ var Article = require("../models/Article.js");
       }
     });
   });
-
 
   // Create a new note or replace an existing note
   router.post("/articles/:id", function(req, res) {
@@ -107,7 +106,7 @@ var Article = require("../models/Article.js");
           }
           else {
             // Or send the document to the browser
-            res.redirect("saved-articles");
+            res.redirect("/save");
           }
         });
       }

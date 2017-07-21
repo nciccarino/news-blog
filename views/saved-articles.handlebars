@@ -9,7 +9,7 @@
       display: none;
     }
 
-    #myDIV2 {
+    #myDIVComments {
       display: none;
     }
       
@@ -55,15 +55,19 @@
                       <form action="/articles/{{this.id}}" method="POST">
                         <div class="form-group">
                           <label for="modalComments">Comments: </label>
-                          <input type="text" id="theComments" name="comment"><br>
+                          <input type="text" id="theComments" name="body"><br>
                           <button id = "saveButton" type="submit" class="btn btn-primary btn-sm btn-rounded">Submit</button>
                         </div>
                       </form>
                     </div>
-                    <button class="btn btn-primary btn-md btn-rounded" onclick="myNewFunction">Show Comments</button>
+                    <button class="btn btn-primary btn-md btn-rounded" onclick="myNewFunction()">Show Comments</button>
                     <br><br>
-                    <div id="myDIV2">
-                      {{this.comment}}
+                    <div id="myDIVComments">
+                      <div class="panel-body">
+                        <p>
+                          {{this.comment}}
+                        </p>
+                      </div> 
                     </div>
                   </div>
                 </div>
@@ -91,20 +95,12 @@
     }
 
     function myNewFunction() {
-      var x = document.getElementById('myDIV2');
+      var x = document.getElementById('myDIVComments');
       if (x.style.display === 'none') {
         x.style.display = 'block';
       } else {
         x.style.display = 'none';
       }
     }
-
-    // function commentFunction() {
-    //   var x = document.getElementById("theComments"); 
-    //   var y = x.val()
-    //   return y; 
-
-    //   console.log(y);
-    // }
 
   </script>
