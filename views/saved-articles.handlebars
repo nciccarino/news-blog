@@ -4,6 +4,14 @@
     #titleNav {
       color: white;
     }
+
+    #myDIV {
+      display: none;
+    }
+
+    #myDIV2 {
+      display: none;
+    }
       
   </style> 
 </head>
@@ -35,12 +43,28 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
-                    {{!-- <a href="{{> articles/update-comment }}" class="btn btn-primary btn-lg btn-rounded" role="button" id= "navButtons">Article Comments</a> --}}
                     {{> articles/unsave-articles }}
                     {{> articles/delete-articles }}
                   </div>
                   <div class="panel-body">
                     {{ this.summary }}
+                    <br><br>
+                    <button class="btn btn-primary btn-md btn-rounded" onclick="myFunction()">Comment</button>
+                    <br><br>
+                    <div id="myDIV">
+                      <form action="/articles/{{this.id}}" method="POST">
+                        <div class="form-group">
+                          <label for="modalComments">Comments: </label>
+                          <input type="text" id="theComments" name="comment"><br>
+                          <button id = "saveButton" type="submit" class="btn btn-primary btn-sm btn-rounded">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                    <button class="btn btn-primary btn-md btn-rounded" onclick="myNewFunction">Show Comments</button>
+                    <br><br>
+                    <div id="myDIV2">
+                      {{this.comment}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -55,3 +79,32 @@
       <h4 id="line">© 2017 Nick Ciccarino</h4>
     </div>
   </div>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById('myDIV');
+      if (x.style.display === 'none') {
+        x.style.display = 'block';
+      } else {
+        x.style.display = 'none';
+      }
+    }
+
+    function myNewFunction() {
+      var x = document.getElementById('myDIV2');
+      if (x.style.display === 'none') {
+        x.style.display = 'block';
+      } else {
+        x.style.display = 'none';
+      }
+    }
+
+    // function commentFunction() {
+    //   var x = document.getElementById("theComments"); 
+    //   var y = x.val()
+    //   return y; 
+
+    //   console.log(y);
+    // }
+
+  </script>

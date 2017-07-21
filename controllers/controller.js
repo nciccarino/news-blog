@@ -107,7 +107,7 @@ var Article = require("../models/Article.js");
           }
           else {
             // Or send the document to the browser
-            res.send(doc);
+            res.redirect("saved-articles");
           }
         });
       }
