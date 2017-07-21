@@ -158,21 +158,26 @@ var Article = require("../models/Article.js");
 
   router.post("/articles/removeSave/:id", function(req, res){
 
-    req.body.title = $(this).title;
-    req.body.link = $(this).link;
-    req.body.summary = $(this).summary; 
-    req.body.saved = false;
-
-    var newRemove = new Article(req.body); 
-
-    newRemove.save(function(err, doc) {
+    Article.findOneAndUpdate({ "_id": req.params.id }, {$set: {saved:false}}, (function(err, doc) {
       if (err) {
         res.send(err);
       }
       else {
-        res.send(doc); 
+        Article.find({}, function(error, doc) {
+      // Log any errors
+          if (error) {
+            console.log(error);
+          }
+          // Or send the doc to the browser as a json object
+          else {
+
+            var obj = { articles: doc };
+
+            res.render("index", obj);
+          }
+        });
       }
-    }) //end newSave
+    })) //end newSave
 
   }); //end removeSave
 
