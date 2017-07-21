@@ -106,7 +106,7 @@ var Article = require("../models/Article.js");
           }
           else {
             // Or send the document to the browser
-            res.redirect("/save");
+            res.render("saved-articles", doc);
           }
         });
       }
@@ -114,7 +114,7 @@ var Article = require("../models/Article.js");
   });
 
   router.post("/articles/save/:id", function(req, res){
-
+    console.log('articles/save/:id POST')
     Article.findOneAndUpdate({ "_id": req.params.id }, {$set: {saved:true}}, (function(err, doc) {
       if (err) {
         res.send(err);
@@ -129,6 +129,8 @@ var Article = require("../models/Article.js");
           else {
 
             var obj = { articles: doc };
+            console.log('========== POST articles/save/id ==========')
+            console.log(obj)
 
             res.render("saved-articles", obj);
           }
@@ -139,6 +141,7 @@ var Article = require("../models/Article.js");
   }); //end save
 
   router.get("/articles/save/:id", function(req, res) {
+    console.log('articles/save/:id GET')
     // Grab every doc in the Articles array
     Article.find({}, function(error, doc) {
       // Log any errors
@@ -149,6 +152,8 @@ var Article = require("../models/Article.js");
       else {
 
         var obj = { articles: doc };
+        console.log('===================')
+        console.log(obj); 
 
         res.render("saved-articles", obj);
       }
@@ -171,6 +176,8 @@ var Article = require("../models/Article.js");
           else {
 
             var obj = { articles: doc };
+
+            // res.redirect('/')
 
             res.render("index", obj);
           }
