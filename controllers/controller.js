@@ -131,7 +131,7 @@ var Article = require("../models/Article.js");
 
             var obj = { articles: doc };
 
-            res.redirect("articles-saved", obj);
+            res.render("saved-articles", obj);
           }
         });
       }
@@ -139,7 +139,7 @@ var Article = require("../models/Article.js");
 
   }); //end save
 
-  router.get("/articles/saved", function(req, res) {
+  router.get("/articles/save/:id", function(req, res) {
     // Grab every doc in the Articles array
     Article.find({}, function(error, doc) {
       // Log any errors

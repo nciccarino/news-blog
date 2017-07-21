@@ -1,7 +1,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h1>News Scraper</h1>
+        <h1 id="titleNav">News Scraper</h1>
       </div>
       <div class= "navbar-collapse collapse" id="navbar-list">
         <ul class="nav navbar-nav navbar-left">
@@ -16,23 +16,19 @@
   <div class="container">
     <div class="row">
       <div class= "col-xs-12">
-        <h1 class="animated fadeInRightBig">News Scraper</h1>
-        <h2 class="animated fadeInRightBig">New York Times</h2>
+        <h1 class="animated fadeInRightBig">New York Times</h1>
+        <hr>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <ul>
-          {{#each articles}}
-            <li>
+        {{#each articles}}
+          {{#unless this.saved}}
             <div class="Articles">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
                   {{> articles/saveAnArticle }}
-                  {{#if this.saved}}
-                    <h5 id= "savedIcon">Saved</h5>
-                  {{/if}}
                   {{> articles/delete-articles }}
                 </div>
                 <div class="panel-body">
@@ -40,9 +36,8 @@
                 </div>
               </div>
             </div>
-            </li>
-          {{/each}}
-        </ul>
+          {{/unless}}
+        {{/each}}
       </div>
     </div>
   </div>

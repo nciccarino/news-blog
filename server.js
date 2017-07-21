@@ -4,8 +4,6 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-// var path = require("path"); 
-
 // Requiring our Note and Article models
 var Comment = require("./models/Comment.js");
 var Article = require("./models/Article.js");
@@ -56,7 +54,7 @@ app.get('/', function (req, res) {
 });
 
 app.get("/saved", function(req, res) {
-  res.render("/articles/saved"); 
+  res.redirect("/articles/save/:id"); 
 }); 
 // Routes
 
