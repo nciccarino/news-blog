@@ -48,25 +48,26 @@
                   </div>
                   <div class="panel-body">
                     {{ this.summary }}
-                    <br><br>
-                    <button class="btn btn-primary btn-md btn-rounded" onclick="myFunction()">Comment</button>
-                    <br><br>
+                    <br><br> 
                     <div id="myDIV}">
                       <form action="/articles/{{this.id}}" method="POST">
                         <div class="form-group">
-                          <label for="theComments">Comments: </label>
+                          <label for="theComments">Comment: </label>
                           <input type="text" id="theComments" name="body"><br>
                           <button id = "saveButton" type="submit" class="btn btn-primary btn-sm btn-rounded">Submit</button>
                         </div>
                       </form>
                     </div>
-                    <button class="btn btn-primary btn-md btn-rounded" onclick="myNewFunction()">Show Comments</button>
                     <br><br>
                     <div id="myDIVComments">
                       <div class="panel-body">
-                        <p>
-                          {{this.comment}}
-                        </p>
+                        <ul>
+                          {{#each comments}}
+                            <li>
+                              <p>{{this.body}}</p>
+                            </li>
+                          {{/each}}
+                        </ul>
                       </div> 
                     </div>
                   </div>
@@ -83,24 +84,3 @@
       <h4 id="line">© 2017 Nick Ciccarino</h4>
     </div>
   </div>
-
-  <script>
-    function myFunction() {
-      var x = document.getElementById('myDIV');
-      if (x.style.display === 'none') {
-        x.style.display = 'block';
-      } else {
-        x.style.display = 'none';
-      }
-    }
-
-    function myNewFunction() {
-      var x = document.getElementById('myDIVComments');
-      if (x.style.display === 'none') {
-        x.style.display = 'block';
-      } else {
-        x.style.display = 'none';
-      }
-    }
-
-  </script>

@@ -67,21 +67,37 @@ var Article = require("../models/Article.js");
   // Grab an article by it's ObjectId
   router.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    Article.findOne({ "_id": req.params.id })
-    // ..and populate all of the notes associated with it
-    .populate("comment")
-    // now, execute our query
-    .exec(function(error, doc) {
-      // Log any errors
+    Article.findOne({ "_id": req.params.id }, function(error, doc) {
       if (error) {
-        console.log(error);
+        console.log(error); 
       }
-      // Otherwise, send the doc to the browser as a json object
       else {
-        res.json(doc);
+        var obj = { comments: doc };
+
+        res.render("saved-articles", obj); 
       }
-    });
+    }); 
+
   });
+
+  // // Grab an article by it's ObjectId
+  // router.get("/articles/:id", function(req, res) {
+  //   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  //   Article.findOne({ "_id": req.params.id })
+  //   // ..and populate all of the notes associated with it
+  //   .populate("comment")
+  //   // now, execute our query
+  //   .exec(function(error, doc) {
+  //     // Log any errors
+  //     if (error) {
+  //       console.log(error);
+  //     }
+  //     // Otherwise, send the doc to the browser as a json object
+  //     else {
+  //       res.json(doc);
+  //     }
+  //   });
+  // });
 
   // Create a new note or replace an existing note
   router.post("/articles/:id", function(req, res) {
@@ -106,7 +122,9 @@ var Article = require("../models/Article.js");
           }
           else {
 
-            res.json(doc); 
+            var id = newComment.id 
+
+            res.redirect("/saved"); 
           }
         });
       }
