@@ -61,13 +61,15 @@
                     <br><br>
                     <div id="myDIVComments">
                       <div class="panel-body">
-                        <ul>
-                          {{#each comments}}
-                            <li>
-                              <p>{{this.body}}</p>
-                            </li>
-                          {{/each}}
-                        </ul>
+                        {{!-- <form action="/articles/" method="GET"> --}}
+                          <ul>
+                            {{#each this.comment}}
+                                <li>
+                                  <p>{{this.body}}</p>
+                                </li>
+                            {{/each}}
+                          </ul>
+{{!--                         </form> --}}
                       </div> 
                     </div>
                   </div>

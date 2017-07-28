@@ -65,9 +65,11 @@ var Article = require("../models/Article.js");
   });
 
   // Grab an article by it's ObjectId
-  router.get("/articles/:id", function(req, res) {
+  router.get("/articles/:comment", function(req, res) {
+
+    console.log("route hit get comments")
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    Article.findOne({ "_id": req.params.id }, function(error, doc) {
+    Article.findOne({ CommentSchema: req.params.comment }, function(error, doc) {
       if (error) {
         console.log(error); 
       }
@@ -79,25 +81,6 @@ var Article = require("../models/Article.js");
     }); 
 
   });
-
-  // // Grab an article by it's ObjectId
-  // router.get("/articles/:id", function(req, res) {
-  //   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  //   Article.findOne({ "_id": req.params.id })
-  //   // ..and populate all of the notes associated with it
-  //   .populate("comment")
-  //   // now, execute our query
-  //   .exec(function(error, doc) {
-  //     // Log any errors
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //     // Otherwise, send the doc to the browser as a json object
-  //     else {
-  //       res.json(doc);
-  //     }
-  //   });
-  // });
 
   // Create a new note or replace an existing note
   router.post("/articles/:id", function(req, res) {
