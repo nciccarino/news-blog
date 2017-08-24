@@ -1,7 +1,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h1 id="titleNav">News Scraper</h1>
+       <h1 id="titleNav"><i class = "glyphicon glyphicon-list"></i> News Scraper</h1>
       </div>
       <div class= "navbar-collapse collapse" id="navbar-list">
         <ul class="nav navbar-nav navbar-left">
@@ -27,9 +27,9 @@
             <div class="Articles">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
-                  {{> articles/saveAnArticle }}
-                  {{> articles/delete-articles }}
+                  <h3 class="panel-title titleArticle"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
+                  <div id="savebutton">{{> articles/saveAnArticle }}</div>
+                  <div id="deletebutton">{{> articles/delete-articles }}</div>
                 </div>
                 <div class="panel-body">
                   {{ this.summary }}

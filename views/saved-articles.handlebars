@@ -1,16 +1,41 @@
 <head>
   <style>
 
-    #titleNav {
-      color: white;
-    }
-
     #myDIV {
       display: none;
     }
 
     #myDIVComments {
       display: none;
+    }
+
+    #titleNav {
+      color: white;
+      margin-right: 10px;
+      margin-left: 30px;
+    }
+
+    hr {
+      color: black;
+    }
+
+    #unsavebutton {
+      float: right;
+    }
+
+    #deletebutton {
+      margin-top: 10px;
+    }
+
+    .titleArticle {
+      font-size: 30px; 
+    }
+
+    #footer {
+      text-align: center; 
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
     }
       
   </style> 
@@ -19,7 +44,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h1 id="titleNav">News Scraper</h1>
+        <h1 id="titleNav"><i class = "glyphicon glyphicon-list"></i> News Scraper</h1>
       </div>
       <div class= "navbar-collapse collapse" id="navbar-list">
         <ul class="nav navbar-nav navbar-left">
@@ -32,6 +57,7 @@
     <div class="row">
       <div class= "col-xs-12">
         <h1 class="animated fadeInRightBig">Saved Articles</h1>
+        <hr>
       </div>
     </div>
     <div class="row">
@@ -43,12 +69,12 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title"><a href="{{ this.link }}" target='_blank'>{{ this.title }}</a></h3>
-                    {{> articles/unsave-articles }}
-                    {{> articles/delete-articles }}
+                    <div id="unsavebutton">{{> articles/unsave-articles }}</div>
+                    <div id="deletebutton">{{> articles/delete-articles }}</div>
                   </div>
                   <div class="panel-body">
                     {{ this.summary }}
-                    <br><br> 
+{{!--                     <br><br> 
                     <div id="myDIV}">
                       <form action="/articles/{{this.id}}" method="POST">
                         <div class="form-group">
@@ -61,7 +87,7 @@
                     <br><br>
                     <div id="myDIVComments">
                       <div class="panel-body">
-                        {{!-- <form action="/articles/" method="GET"> --}}
+                        <form action="/articles/" method="GET">
                           <ul>
                             {{#each this.comment}}
                                 <li>
@@ -69,9 +95,9 @@
                                 </li>
                             {{/each}}
                           </ul>
-{{!--                         </form> --}}
+                        </form>
                       </div> 
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
